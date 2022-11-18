@@ -30,8 +30,22 @@ class CarController {
       const newCar = await this.service.addCar(car);
       return this.res.status(201).json(newCar);
     } catch (error) {
-      console.log(error);
-      
+      this.next(error);
+    }
+  }
+
+  public async getCars() {
+    const cars = await this.service.getCars();
+
+    return this.res.status(200).json(cars);
+  }
+
+  public async getById() {
+    const { id } = this.req.params;
+    try {
+      const car = await this.service.getById(id);
+      return this.res.status(200).json(car);
+    } catch (error) {
       this.next(error);
     }
   }
