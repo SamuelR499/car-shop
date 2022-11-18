@@ -6,5 +6,5 @@ export default interface ICar {
   buyValue: number,
   doorsQty: number,
   seatsQty: number,
-  id?: string,
+  _id?: string,
 }

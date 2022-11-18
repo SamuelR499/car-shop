@@ -11,7 +11,7 @@ class Car {
   private seatsQty: number;
 
   constructor(car: ICar) {
-    this.id = car.id;
+    this.id = car._id;
     this.model = car.model;
     this.year = car.year;
     this.color = car.color;
