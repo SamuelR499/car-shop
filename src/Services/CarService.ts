@@ -30,6 +30,7 @@ class CarService {
     if (id.length < 24) {
       throw new HttpException(422, 'Invalid mongo id');
     }
+
     const car = await carODM.getById(id);
 
     if (!car) {
@@ -37,6 +38,22 @@ class CarService {
     }
 
     return this.createCarDomain(car);
+  }
+
+  public async update(id: string, car: ICar) {
+    const carODM = new CarODM();
+
+    if (id.length < 24) {
+      throw new HttpException(422, 'Invalid mongo id');
+    }
+
+    await carODM.update(id, car);
+    const newCar = await carODM.getById(id);
+    if (!newCar) {
+      throw new HttpException(404, 'Car not found');
+    }
+    
+    return this.createCarDomain(newCar);
   }
 }
 
