@@ -9,7 +9,7 @@ class Vehicle {
   protected buyValue: number;
 
   constructor(vehicle: IVehicle) {
-    this.id = vehicle._id;
+    this.id = vehicle.id;
     this.model = vehicle.model;
     this.year = vehicle.year;
     this.color = vehicle.color;

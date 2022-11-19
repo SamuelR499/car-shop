@@ -7,7 +7,7 @@ class Motorcycle extends Vehicle {
 
   constructor(moto: IMotorcycle) {
     super(moto);
-    this.id = moto._id;
+    this.id = moto.id;
     this.model = moto.model;
     this.year = moto.year;
     this.color = moto.color;
