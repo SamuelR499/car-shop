@@ -19,8 +19,8 @@ class CarService {
 
   public async getCars() {
     const carODM = new CarODM();
-    const carLIst = await carODM.getCars();
-    const result = carLIst.map((car) => this.createCarDomain(car));
+    const carList = await carODM.find();
+    const result = carList && carList.map((car) => this.createCarDomain(car));
     return result;
   }
 
@@ -31,11 +31,7 @@ class CarService {
       throw new HttpException(422, 'Invalid mongo id');
     }
 
-    const car = await carODM.getById(id);
-
-    if (!car) {
-      throw new HttpException(404, 'Car not found');
-    }
+    const car = await carODM.findOne(id);
 
     return this.createCarDomain(car);
   }
@@ -47,8 +43,7 @@ class CarService {
       throw new HttpException(422, 'Invalid mongo id');
     }
 
-    await carODM.update(id, car);
-    const newCar = await carODM.getById(id);
+    const newCar = await carODM.update(id, car);
     if (!newCar) {
       throw new HttpException(404, 'Car not found');
     }
