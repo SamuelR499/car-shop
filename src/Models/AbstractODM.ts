@@ -1,5 +1,4 @@
 import {
-  isValidObjectId,
   Model,
   models,
   Schema,
@@ -24,22 +23,17 @@ abstract class AbstractODM<T> {
   }
 
   public async find(): Promise<T[] | null> {
-    return this.model.find({ });
+    return this.model.find({});
   }
 
   public async findOne(_id: string): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw Error('Invalid Mongo id');
-
     return this.model.findOne({ _id });
   }
 
-  public async update(_id: string, obj: Partial<T>): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw Error('Invalid Mongo id');
-
-    return this.model.findByIdAndUpdate(
+  public async update(_id: string, obj: Partial<T>): Promise<void> {
+    await this.model.updateOne(
       { _id },
       { ...obj } as UpdateQuery<T>,
-      { new: true },
     );
   }
 }
