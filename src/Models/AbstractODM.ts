@@ -31,10 +31,11 @@ abstract class AbstractODM<T> {
   }
 
   public async update(_id: string, obj: Partial<T>): Promise<void> {
-    await this.model.updateOne(
+    const test = await this.model.updateOne(
       { _id },
       { ...obj } as UpdateQuery<T>,
     );
+    console.log(test);
   }
 }
 

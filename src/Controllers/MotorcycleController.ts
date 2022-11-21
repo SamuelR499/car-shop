@@ -33,6 +33,34 @@ class MotorcycleController {
       this.next(error);
     }
   }
+
+  public async getMotorcycles() {
+    const motorcycles = await this.service.getMotorcycles();
+
+    return this.res.status(200).json(motorcycles);
+  }
+
+  public async getById() {
+    const { id } = this.req.params;
+    try {
+      const motorcycle = await this.service.getById(id);
+      return this.res.status(200).json(motorcycle);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
+  public async update() {
+    const { id } = this.req.params;
+    const motorcycle: IMotorcycle = { ...this.req.body };
+
+    try {
+      const newMotorcycle = await this.service.update(id, motorcycle);
+      return this.res.status(200).json(newMotorcycle);
+    } catch (error) {
+      this.next(error);
+    }
+  }
 }
 
 export default MotorcycleController;
