@@ -29,3 +29,11 @@ export const carMock = {
   doorsQty: 2,
   seatsQty: 5,
 };
+
+export const updateMock = {
+  acknowledged: true,
+  modifiedCount: 0,
+  upsertedId: 'a377f5d31857dff63d3faa2b' as any,
+  upsertedCount: 0,
+  matchedCount: 1,
+};
