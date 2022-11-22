@@ -4,14 +4,14 @@ import { Model } from 'mongoose';
 import ICar from '../../../src/Interfaces/ICar';
 import CarService from '../../../src/Services/CarService';
 import Car from '../../../src/Domains/Car';
-import { carsArray, carMock, updateMock } from './carsMocks';
+import { carsArray, carMock, updateMock } from './mocks/carsMocks';
 
 describe('Testando a service de carService', function () {
-  describe('teste para a rota post "/cars"', function () {
+  describe('Teste para a rota post "/cars"', function () {
     afterEach(function () {
       sinon.restore();
     });
-    it('deve criar um car com SUCESSO', async function () {
+    it('Deve criar um car com SUCESSO', async function () {
       const carInput: ICar = {
         model: 'tesla',
         year: 2030,
@@ -23,6 +23,7 @@ describe('Testando a service de carService', function () {
       };
     
       const carOutput: Car = new Car({
+        id: '6348513f34c397abcad040b2',
         model: 'tesla',
         year: 2030,
         color: 'Branco',
@@ -38,7 +39,7 @@ describe('Testando a service de carService', function () {
       expect(result).to.be.deep.equal(carOutput);
     });
 
-    it('Se nao for preenchido os campo retorna null', async function () {
+    it('Se não for preenchido os campo retorna null', async function () {
       const carInput: ICar = {
         model: 'tesla',
         year: 2030,
@@ -68,7 +69,7 @@ describe('Testando a service de carService', function () {
   });
 
   describe('Teste para a rota get "/cars/:id"', function () {
-    it('Em caso de sucesso devera atualizar e retornar o objeto atualizado', async function () {
+    it('Em caso de sucesso devera retornar o objeto encontrado, pelo id', async function () {
       const car = new Car(carMock);
       sinon.stub(Model, 'findOne').resolves(carMock);
       const service = new CarService();
@@ -76,7 +77,7 @@ describe('Testando a service de carService', function () {
       expect(result).to.be.deep.equal(car);
     });
 
-    it('Quando o id é inválida, deveria lançar um erro "Invalid mongo id"', async function () {
+    it('Quando o id é inválida, devera lançar um erro "Invalid mongo id"', async function () {
       sinon.stub(Model, 'findOne').resolves(null);
 
       try {
@@ -104,7 +105,7 @@ describe('Testando a service de carService', function () {
   });
 
   describe('Teste para a rota update "/cars/:id"', function () {
-    it('Em caso de sucesso deveria trazer o novo carro especifico pelo id', async function () {
+    it('Em caso de sucesso deveria trazer o novo carro especifico, pelo id', async function () {
       const car = new Car(carMock);
       const service = new CarService();
 
